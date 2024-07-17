@@ -15,6 +15,17 @@ services:
       - ./jenkins-docker-certs:/certs/client:ro
     networks:
      - jenkins
+  socat:
+    restart: unless-stopped
+    ports:
+        - 127.0.0.1:2376:2375
+    networks:
+        - jenkins
+    volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+    image: alpine/socat:1.8.0.0
+    container_name: socat-proxy
+    command: tcp-listen:2375,fork,reuseaddr unix-connect:/var/run/docker.sock
 networks:
   jenkins:
     name: jenkins

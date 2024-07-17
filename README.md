@@ -20,3 +20,29 @@ docker network create jenkins
 # Run jenkins
 docker compose up -d
 ```
+
+### Retrieve initial admin password
+`docker exec jenkins-blueocean cat /var/jenkins_home/secrets/initialAdminPassword`
+
+### Access jenkins server
+Navigate to `https://localhost:8080/` on your preferred browser.
+
+Afterwards setup your first admin user.
+
+
+## Configure docker agent as a runner
+### Forward traffic from jenkins to docker sock
+The socat-proxy service in the compose.yaml file aids to proxy connections from jenkins master container to the docker host.
+
+### Get IP of socat container
+docker inspect <socat-proxy container_id> | grep IPAddress
+
+### Add docker runner via Jenkins UI
+Navigate to Dashboard > Manage Jenkins > Clouds > New Cloud(Install Docker plugin first) > add `tcp://{socat_ip}:2375` to Docker Host URI & test connection > Save
+
+### Add docker agent template
+Navigate to Dashboard > Manage Jenkins > Clouds > Choose newly created agent > edit docker agent template > specify label, node name, docker image i.e. `jenkins/agent:jdk17`, home directory i.e. `/home/jenkins` & instance capacity to 2.
+Repeat the above for other agents as required.
+
+### Miscellaneous
+`*/5 * * * *` => Cron expression randomly every 5 mins.
