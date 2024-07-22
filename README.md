@@ -45,4 +45,4 @@ Navigate to Dashboard > Manage Jenkins > Clouds > Choose newly created agent > e
 Repeat the above for other agents as required.
 
 ### Miscellaneous
-`*/5 * * * *` => Cron expression randomly every 5 mins.
+`*/5 * * * *` => cron expression randomly every 5 mins.

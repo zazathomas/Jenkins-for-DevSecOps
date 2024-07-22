@@ -1,0 +1,17 @@
+pipeline{
+    agent{
+        label "default"
+    }
+    stages{
+        stage("Verify Branch"){
+            steps{
+                echo "$GIT_BRANCH"
+            }
+        }
+        stage("Docker Images"){
+            steps{
+                sh(script: 'docker images')
+            }
+        }
+}
+}
