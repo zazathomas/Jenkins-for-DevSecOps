@@ -10,7 +10,7 @@ pipeline{
         }
         stage("Docker Images"){
             steps{
-                sh(script: 'docker images')
+                sh(script: 'docker images && whoami')
             }
         }
 }
