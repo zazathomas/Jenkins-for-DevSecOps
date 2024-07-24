@@ -21,5 +21,5 @@ RUN dnf install python3.12 -y && dnf install python3.12-pip -y && pip3.12 instal
 # Install Docker CLI
 COPY --from=docker:dind /usr/local/bin/docker /usr/local/bin/
 
-
-
+# Create Jenkins User
+RUN useradd -ms /bin/bash jenkins
