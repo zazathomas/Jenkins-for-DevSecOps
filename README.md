@@ -44,5 +44,11 @@ Navigate to Dashboard > Manage Jenkins > Clouds > New Cloud(Install Docker plugi
 Navigate to Dashboard > Manage Jenkins > Clouds > Choose newly created agent > edit docker agent template > specify label, node name, docker image i.e. `jenkins/agent:jdk17`, home directory i.e. `/home/jenkins` & instance capacity to 2.
 Repeat the above for other agents as required.
 
+### DevSecOps Image
+I built a DevSecOps docker image that contains a couple tools used for different scan types. The
+dockerfile can be located at `custom-agents/Dockerfile`. Feel free to use and modify as required. PRs are welcome for adding more tools to the file.
+
 ### Miscellaneous
 `*/5 * * * *` => cron expression randomly every 5 mins.
+`RUN useradd -ms /bin/bash newuser` => Add user to docker file in RHEL
+To docker coomands in cloud runner, modify template to allow privileged mode run and add `type=bind,source=/var/run/docker.sock,destination=/var/run/docker.sock` to the Mounts.
