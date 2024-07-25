@@ -3,7 +3,7 @@ FROM redhat/ubi9:9.4
 USER root
 
 #########################################################################
-# This Dockfile file is used to build a ubi9 based Docker Image         #
+# This Dockerfile file is used to build a ubi9 based Docker Image       #
 # containing a couple security tools used for SAST, Secret scanning     #
 # , IaC scanning, Image scanning, SBOM generation & Artifact signing.   #
 #                                                                       #
@@ -13,7 +13,7 @@ USER root
 
 
 # Install Java for Jenkins support
-RUN dnf update -y && dnf install java-21-openjdk -y
+RUN dnf update -y && dnf install java-21-openjdk -y && dnf install git -y
 
 # Install Trivy for Image scanning
 RUN curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
