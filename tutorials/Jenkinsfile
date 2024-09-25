@@ -1,6 +1,6 @@
 pipeline{
     agent{
-        label "devsecops-box"
+        label "node"
     }
     stages{
         stage("Verify Branch"){

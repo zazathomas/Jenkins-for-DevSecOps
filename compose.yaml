@@ -1,20 +1,21 @@
 services:
   jenkins:
-    image: 'zazathomas/jenkins-blueocean:2.468'
-    container_name: jenkins-blueocean
+    image: 'zazathomas/jenkins:jdk21'
+    container_name: jenkins
     restart: unless-stopped
     environment:
       DOCKER_HOST: 'tcp://docker:2376'
       DOCKER_CERT_PATH: '/certs/client'
       DOCKER_TLS_VERIFY: 1
     ports:
-      - '8080:8080'
+      - '9999:8080'
       - '50000:50000'
     volumes:
       - ./jenkins_data:/var/jenkins_home
       - ./jenkins-docker-certs:/certs/client:ro
     networks:
      - jenkins
+     - proxy
   socat:
     restart: unless-stopped
     ports:
@@ -26,7 +27,10 @@ services:
     image: alpine/socat:1.8.0.0
     container_name: socat-proxy
     command: tcp-listen:2375,fork,reuseaddr unix-connect:/var/run/docker.sock
+
 networks:
   jenkins:
-    name: jenkins
     external: true
+  proxy:
+    external: true
+

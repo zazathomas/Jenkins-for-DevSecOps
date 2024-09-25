@@ -22,7 +22,7 @@ docker compose up -d
 ```
 
 ### Retrieve initial admin password
-`docker exec jenkins-blueocean cat /var/jenkins_home/secrets/initialAdminPassword`
+`docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword`
 
 ### Access jenkins server
 Navigate to `https://localhost:8080/` on your preferred browser.
@@ -49,6 +49,6 @@ I built a DevSecOps docker image that contains a couple tools used for different
 dockerfile can be located at `custom-agents/Dockerfile`. Feel free to use and modify as required. PRs are welcome for adding more tools to the file.
 
 ### Miscellaneous
-`*/5 * * * *` => cron expression randomly every 5 mins.
+`*/5 * * * *` => cron expression to trigger every 5 mins.
 `RUN useradd -ms /bin/bash newuser` => Add user to docker file in RHEL
-To docker coomands in cloud runner, modify template to allow privileged mode run and add `type=bind,source=/var/run/docker.sock,destination=/var/run/docker.sock` to the Mounts.
+To run docker commands in cloud runner, modify template to allow privileged mode run and add `type=bind,source=/var/run/docker.sock,destination=/var/run/docker.sock` to the Mounts.

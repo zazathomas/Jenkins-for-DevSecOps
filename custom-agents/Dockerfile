@@ -24,8 +24,8 @@ RUN curl -sSfL https://raw.githubusercontent.com/trufflesecurity/trufflehog/main
 # Install Python 12
 RUN dnf install python3.12 -y && dnf install python3.12-pip -y
 
-# Install semgrep & bandit for SAST scanning
-RUN pip3.12 install semgrep && pip3.12 install bandit
+# Install semgrep & bandit for SAST scanning & detect secrets for secret scanning
+RUN pip3.12 install semgrep && pip3.12 install bandit && pip3.12 install detect-secrets
 
 # Install Syft for SBOM generation
 RUN curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
