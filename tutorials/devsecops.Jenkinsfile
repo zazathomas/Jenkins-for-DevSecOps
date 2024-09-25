@@ -3,7 +3,7 @@ pipeline{
         label "node"
     }
     stages{
-        stage("A"){
+        stage("Secret Scanning"){
             steps{
                 echo "========Executing Secret Scan========"
             }
