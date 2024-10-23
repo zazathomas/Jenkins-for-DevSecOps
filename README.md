@@ -50,5 +50,48 @@ dockerfile can be located at `custom-agents/Dockerfile`. Feel free to use and mo
 
 ### Miscellaneous
 `*/5 * * * *` => cron expression to trigger every 5 mins.
+
 `RUN useradd -ms /bin/bash newuser` => Add user to docker file in RHEL
+
 To run docker commands in cloud runner, modify template to allow privileged mode run and add `type=bind,source=/var/run/docker.sock,destination=/var/run/docker.sock` to the Mounts.
+
+---
+## K8S Jenkins Setup
+Jenkins can be easily deployed via helm following these instructions:
+
+`helm repo add jenkins https://charts.jenkins.io`
+
+`helm repo update`
+
+Customize the values file to suit your usecase before deploying
+
+`helm install jenkins jenkins/jenkins -f values.yaml -n jenkins --create-namespace`
+
+
+### Overview
+
+This K8S-Deployment/ folder contains a **Jenkinsfile** that defines the **DevSecOps pipeline** for integrating security practices into the SDLC. The pipeline automates security scanning for applications, ensuring that security is a core component of the CI/CD process.
+
+### Pipeline Features
+
+- **Code Checkout**: Clones the application source code from the specified Git repository.
+
+- **Security Scanning**:
+  - **Static Application Security Testing (SAST)**: Scans source code for vulnerabilities using tools like **Semgrep**.
+  - **Secret Scanning**: Scans repositories for secrets using **Trufflehog**.
+  - **Container Scanning**: Scans Docker images for vulnerabilities using **Trivy**.
+  - **Dynamic Application Security Testing (DAST)**: Performs runtime vulnerability testing on the deployed applications using **Nuclei**.
+  - **Infrastructure as Code (IaC) Scanning**: Scans Kubernetes Manifests, Dockerfiles, and Ansible playbooks for security misconfigurations using **Checkov**.
+
+### Prerequisites
+
+1. **Jenkins Server**: Ensure you have a Jenkins instance configured with necessary plugins (e.g., Git, Docker, SAST tools).
+2. **Security Tools**: Make sure security scanning tools are available (e.g., Trivy for container scanning).
+3. **Credentials**: Store required credentials (e.g., Git, Docker registry, cloud provider) securely in Jenkins.
+
+### Customization
+
+- Modify the stages to include or exclude steps depending on your security and deployment requirements.
+- Update the security scanning tools as needed.
+- Set up notification channels (e.g., Slack, email) in the `post` section of the Jenkinsfile.
+

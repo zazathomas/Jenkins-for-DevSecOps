@@ -1,0 +1,2 @@
+jenkins:
+  systemMessage: Welcome to my Homelab Automation server. This Jenkins instance is configured and managed 'as code'.
