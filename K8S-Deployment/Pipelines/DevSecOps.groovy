@@ -20,22 +20,8 @@ spec:
       - sleep
       args:
       - infinity
-    - name: nuclei
-      image: projectdiscovery/nuclei:v3.3.5
-      imagePullPolicy: Always
-      command:
-      - sleep
-      args:
-      - infinity
     - name: checkov
       image: bridgecrew/checkov:3.2.269
-      imagePullPolicy: Always
-      command:
-      - sleep
-      args:
-      - infinity
-    - name: cosign
-      image: bitnami/cosign:2.4.1
       imagePullPolicy: Always
       command:
       - sleep
@@ -101,17 +87,6 @@ spec:
                     sh 'trivy --version' // Checking version
                     // Scan image for vulnerabilities
                     sh 'trivy image --skip-db-update --skip-java-db-update --skip-check-update --scanners vuln --severity HIGH,CRITICAL --ignore-unfixed --format json --output trivy_results.json test-image'
-                }
-            }
-        }
-
-        stage("Dynamic Application Security Testing (DAST)"){
-            steps{
-                container('nuclei'){
-                    echo 'Running Nuclei scan...'
-                    sh 'nuclei --version' // Checking version
-                    // Scan Endpoints for vulnerabilities
-                    sh 'nuclei -disable-update-check -target https://example.com -json-export nuclei_results.json'
                 }
             }
         }
