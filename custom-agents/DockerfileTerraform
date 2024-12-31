@@ -1,0 +1,19 @@
+# Use a lightweight base image
+FROM alpine:3.21.0
+
+# Set environment variables for Terraform version
+ENV TERRAFORM_VERSION=1.10.3
+
+# Update package manager and install openssh
+RUN apk update && apk add --no-cache openssh unzip curl
+
+# Install Terraform
+RUN curl -fsSL https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_arm64.zip -o terraform.zip \
+    && unzip terraform.zip \
+    && mv terraform /usr/local/bin/ \
+    && chmod +x /usr/local/bin/terraform \
+    && rm terraform.zip \
+    && apk del unzip curl
+
+# Basic entry point
+CMD ["sleep", "infinity"]
