@@ -15,5 +15,3 @@ RUN curl -fsSL https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/ter
     && rm terraform.zip \
     && apk del unzip curl
 
-# Basic entry point
-CMD ["sleep", "infinity"]
