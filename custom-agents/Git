@@ -1,0 +1,6 @@
+# Use a lightweight base image
+FROM alpine:3.21.0
+
+
+# Update package manager and install openssh
+RUN apk update && apk add --no-cache git
