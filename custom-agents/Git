@@ -4,5 +4,5 @@ FROM alpine:3.21.0
 
 # Update package manager and install git
 RUN apk update && apk add --no-cache git
-RUN useradd -ms /bin/sh zaza
+RUN useradd -ms zaza
 USER zaza
