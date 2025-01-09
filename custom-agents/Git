@@ -2,5 +2,5 @@
 FROM alpine:3.21.0
 
 
-# Update package manager and install openssh
+# Update package manager and install git
 RUN apk update && apk add --no-cache git
