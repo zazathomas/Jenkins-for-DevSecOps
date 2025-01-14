@@ -1,0 +1,10 @@
+# Use a lightweight base image
+FROM alpine:3.21.0
+
+# Update package manager and install curl
+RUN apk update && apk add --no-cache curl
+
+# Install Cosign
+RUN curl -O -L https://github.com/sigstore/cosign/releases/latest/download/cosign-linux-amd64 \
+    && mv cosign-linux-amd64 /usr/local/bin/cosign \
+    && chmod +x /usr/local/bin/cosign 
