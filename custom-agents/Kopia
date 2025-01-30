@@ -15,9 +15,3 @@ RUN echo \
 # Install Docker CLI
 RUN apt-get update && \
     apt-get install -y docker-ce-cli docker-compose-plugin
-
-# Create a user with the same UID and GID as the host user
-RUN groupadd -g 1000 zaza && useradd -u 1000 -g zaza zaza
-
-# Switch to the new user
-USER zaza
